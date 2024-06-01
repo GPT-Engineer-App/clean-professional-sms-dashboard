@@ -5,7 +5,42 @@ import { FaHome, FaList, FaDollarSign, FaSignInAlt, FaTachometerAlt, FaSms, FaAd
 const Index = () => {
   const [page, setPage] = useState("home");
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const renderContent = () => {
+    if (isLoggedIn) {
+      return (
+        <HStack spacing={4} align="flex-start">
+          <VStack spacing={4} align="flex-start">
+            <Button leftIcon={<FaTachometerAlt />} onClick={() => setPage("overview")}>
+              Overview
+            </Button>
+            <Button leftIcon={<FaSms />} onClick={() => setPage("send-sms")}>
+              Send SMS
+            </Button>
+            <Button leftIcon={<FaAddressBook />} onClick={() => setPage("contacts")}>
+              Contacts
+            </Button>
+            <Button leftIcon={<FaFileAlt />} onClick={() => setPage("templates")}>
+              Templates
+            </Button>
+            <Button leftIcon={<FaChartBar />} onClick={() => setPage("reports")}>
+              Reports
+            </Button>
+            <Button leftIcon={<FaBook />} onClick={() => setPage("api-docs")}>
+              API Documentation
+            </Button>
+            <Button leftIcon={<FaCog />} onClick={() => setPage("account-settings")}>
+              Account Settings
+            </Button>
+            <Button leftIcon={<FaQuestionCircle />} onClick={() => setPage("support")}>
+              Support
+            </Button>
+          </VStack>
+          <Box flex="1">{renderDashboardContent()}</Box>
+        </HStack>
+      );
+    }
     switch (page) {
       case "home":
         return (
@@ -63,7 +98,9 @@ const Index = () => {
               <FormLabel>Password</FormLabel>
               <Input type="password" />
             </FormControl>
-            <Button colorScheme="teal">Login</Button>
+            <Button colorScheme="teal" onClick={() => setIsLoggedIn(true)}>
+              Login
+            </Button>
           </VStack>
         );
       case "dashboard":
